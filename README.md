@@ -22,8 +22,10 @@ The issue isn't be there when cloning the repo. However, switch into one of the 
 
 For instance, `git checkout root-manual`. Then run `pnpm install`. Open the example unit test file `app.component.spec.ts`. The issue appears. `toBeTruthy` appears in red color. Amongst the rest of assertions too.
 
-### Extra note
+### Extra notes
 When switching back to `main` branch to write this note in `README.md` the issue disappeared. Switching to a branch where Cypress has been added, raises the issue back again. 
+
+Notice some time must pass for the red color to appear. What is instant is that hovering over `toBeTruthy` or other assertions triggers a popup saying that there are no definitions available. When if in `main` branch where no Cypress exists, hovering over the assertion triggers a popup with Jasmine's documentation
 
 Turned off `Test Automation` plugin just in case. Restored default settings just incase. Invalidated caches too.
 
