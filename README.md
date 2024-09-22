@@ -1,5 +1,34 @@
 # Angular18CypressJasmineTypes
 
+This is a minimal reproduction for [an issue](https://youtrack.jetbrains.com/issue/WEB-68686) in JetBrains IDEs. TL;DR: IDE thinks unit tests are Chai/Mocha tests but they're Jasmine ones. Probably because confusing them with Cypress tests instead. Therefore unit test assertions (i.e.: `toBeTruthy`) appear in red color as the definitions aren't found. Though they actually work (like when running them with `ng test`)
+
+## Creating the repository
+To create the repository, a fresh Angular app has been created with the following command:
+
+```shell
+pnpm dlx @angular/cli new \
+  --package-manager=pnpm \
+  angular-18-cypress-jasmine-types
+```
+
+Choosing defaults: CSS + no SSR/SSG. Using `pnpm` for `p`erformance purposes.
+
+## Reproducing the issue
+
+The issue isn't be there when cloning the repo. However, switch into one of the two branches:
+
+- [`root-schematic`](https://github.com/davidlj95/angular-18-cypress-jasmine-types/tree/root-schematic). Where Cypress has been added via [Cypress Angular Schematic](https://www.npmjs.com/package/@cypress/schematic)
+- [`root-manual`](https://github.com/davidlj95/angular-18-cypress-jasmine-types/tree/root-manual). Where Cypress has been added manually by `pnpm install -DE cypress`
+
+For instance, `git checkout root-manual`. Then run `pnpm install`. Open the example unit test file `app.component.spec.ts`. The issue appears. `toBeTruthy` appears in red color. Amongst the rest of assertions too.
+
+### Extra note
+When switching back to `main` branch to write this note in `README.md` the issue disappeared. Switching to a branch where Cypress has been added, raises the issue back again. 
+
+Turned off `Test Automation` plugin just in case. Restored default settings just incase. Invalidated caches too.
+
+> Now `Test Automation` plugin is reporting an issue about OpenAPI when enabling it back. Will create a separate issue for that too.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
 
 ## Development server
