@@ -2,6 +2,23 @@
 
 This is a minimal reproduction for [an issue](https://youtrack.jetbrains.com/issue/WEB-68686) in JetBrains IDEs. TL;DR: IDE thinks unit tests are Chai/Mocha tests but they're Jasmine ones. Probably because confusing them with Cypress tests instead. Therefore unit test assertions (i.e.: `toBeTruthy`) appear in red color as the definitions aren't found. Though they actually work (like when running them with `ng test`)
 
+## UPDATE: Refer to `app/spec` Typescript configs
+
+After [reply from a JetBrains team member](https://youtrack.jetbrains.com/issue/WEB-68998/Paths-from-tsconfig.app.json-are-ignored#focus=Comments-27-10762562.0-0), the suggested fix is to refer to `tsconfig.app/spec.json` from `tsconfig.json` 
+
+This has been applied in [commit `24f929b`](https://github.com/davidlj95/angular-18-cypress-jasmine-types/commit/24f929b1da27a88d2c623c2c99c55e0c8961d555)
+
+After that, when using WebStorm 2024.2.3 seems the issue about assertion types is fixed.
+
+Though the docs / "Go to declaration" of `beforeEach`, `describe`, `it` and `expect` are wrong.
+When using <key>Cmd</key> + <key>B</key> and <key>F1</key> to see docs, Mocha/Chai docs appear:
+
+![](screenshot-mochasmine.png)
+
+Mocha ones appear for `beforeEach`, `describe` and `it`. Chai ones for `expect`.
+
+When using "Go to declaration or usages" you go to `(chai|mocha)/index.d.ts`
+
 ## Creating the repository
 To create the repository, a fresh Angular app has been created with the following command:
 
